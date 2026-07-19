@@ -1,0 +1,11 @@
+{
+  "name": "creator-hub-fullstack",
+  "version": "1.0.0",
+  "description": "Full-stack Creator Hub Web Application",
+  "scripts": {
+    "start:django": "cd backend-django && source venv/bin/activate && python manage.py runserver 8000",
+    "start:node": "cd backend-node && node server.js",
+    "start:frontend": "cd frontend && npm run dev",
+    "dev": "npx -y concurrently \"npm run start:django\" \"npm run start:node\" \"npm run start:frontend\""
+  }
+}

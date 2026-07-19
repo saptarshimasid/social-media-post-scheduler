@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Creator Hub - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#1e2024",
+                        "surface": "#111318",
+                        "tertiary-fixed-dim": "#87dd00",
+                        "on-background": "#e2e2e8",
+                        "surface-dim": "#111318",
+                        "surface-variant": "#333539",
+                        "background": "#111318",
+                        "secondary-container": "#ff24e4",
+                        "primary-fixed": "#7df4ff",
+                        "surface-container-lowest": "#0c0e12",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#840076",
+                        "inverse-primary": "#006970",
+                        "primary-container": "#00f0ff",
+                        "secondary": "#fface8",
+                        "on-primary-container": "#006970",
+                        "outline": "#849495",
+                        "outline-variant": "#3b494b",
+                        "on-tertiary-fixed": "#0f2000",
+                        "tertiary-fixed": "#9bfc00",
+                        "surface-container-low": "#1a1c20",
+                        "surface-container-highest": "#333539",
+                        "on-secondary": "#5e0053",
+                        "tertiary": "#e2ffbe",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#ffd7f0",
+                        "on-primary": "#00363a",
+                        "on-tertiary": "#1e3700",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-surface": "#e2e2e8",
+                        "secondary-fixed-dim": "#fface8",
+                        "surface-tint": "#00dbe9",
+                        "on-tertiary-container": "#3e6a00",
+                        "on-secondary-container": "#520049",
+                        "tertiary-container": "#94f100",
+                        "on-tertiary-fixed-variant": "#2e4f00",
+                        "primary": "#dbfcff",
+                        "inverse-surface": "#e2e2e8",
+                        "inverse-on-surface": "#2f3035",
+                        "primary-fixed-dim": "#00dbe9",
+                        "on-secondary-fixed": "#3a0033",
+                        "surface-bright": "#37393e",
+                        "on-surface-variant": "#b9cacb",
+                        "on-error": "#690005",
+                        "surface-container-high": "#282a2e",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#002022"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "surface-gap": "16px",
+                        "container-padding-desktop": "32px",
+                        "container-padding-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0C10; /* Deep Dark Background Override */
+            color: #e2e2e8;
+        }
+        .glass-card {
+            background-color: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .glass-button-primary {
+            background-color: #00F0FF;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        .glass-button-primary:hover {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+        /* Custom Checkbox */
+        .neon-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(0,0,0,0.2);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .neon-checkbox:checked {
+            background: #00F0FF;
+            border-color: #00F0FF;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+        .neon-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid black;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- Ambient Background Lighting -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+<div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary-container/10 blur-[120px]"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-secondary-container/10 blur-[150px]"></div>
+</div>
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex flex-col h-full py-base bg-surface-container/80 backdrop-blur-xl fixed h-full w-[280px] left-0 top-0 border-r border-white/10 shadow-2xl z-50">
+<div class="px-gutter mb-8 mt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface overflow-hidden border border-white/10 shrink-0">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A striking minimalist portrait of a modern digital creator, high-contrast studio lighting, moody atmosphere, cool tones with a hint of cyan rim light, professional avatar style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK8ykBcnINDy2Khv5YDql-g1s2ny_8R03DQbIeh5Pto-ByYjt9x63YHjCaNtMBtrzs8KMyHACqv9MOK_ztdjM_rLvtfSY2F9t3z-vHlfMDC5NvS_ajoyMUkqvAD6wMC8ohIbaFJ6SvtxZUE2VkPYOdw1oluR_B_ShGFzkpsFkPmhZDC4fc9vm59J2eCxeJZMpFo8RR53lVC8ElYFIAwHI4-qMgQUJGMrvpiIQ_CVaDtk5Aro4s9WjeaT6gaXOIKNV1tnKtVHkALtIh"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed">Creator Hub</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pro Plan</p>
+</div>
+</div>
+<ul class="flex-1 px-4 space-y-2">
+<!-- Dashboard (Active) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary-fixed font-bold border-r-2 border-primary-fixed bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<!-- Calendar (Inactive) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Calendar</span>
+</a>
+</li>
+<!-- Drafts (Inactive) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span>Drafts</span>
+</a>
+</li>
+<!-- Analytics (Inactive) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Analytics</span>
+</a>
+</li>
+<!-- Platforms (Inactive) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span>Platforms</span>
+</a>
+</li>
+<!-- Settings (Inactive) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+<div class="px-gutter mt-auto">
+<button class="w-full py-3 rounded-lg font-label-sm text-label-sm glass-button-primary flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Post
+            </button>
+</div>
+</nav>
+<!-- TopNavBar (from JSON) -->
+<header class="hidden md:flex justify-between items-center h-16 px-gutter ml-[280px] bg-surface/60 backdrop-blur-lg fixed top-0 right-0 w-[calc(100%-280px)] shadow-sm z-40 border-b border-white/10">
+<div class="flex items-center gap-6">
+<span class="font-display-lg text-display-lg font-bold text-primary-fixed text-xl tracking-tight">Scheduler Pro</span>
+<nav class="hidden lg:flex gap-6">
+<!-- None active in this context, all inactive -->
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Workspaces</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Team</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Assets</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">cloudy_snowing</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="ml-4 px-4 py-1.5 rounded-full border border-primary-container text-primary-container font-label-sm text-label-sm hover:bg-primary-container/10 transition-colors">
+                Upgrade
+            </button>
+<div class="w-8 h-8 rounded-full ml-2 overflow-hidden border border-white/10">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Small thumbnail portrait of a creative professional, dark futuristic styling, neon cyan accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEcBh7IUd9h7aVmvG_82aPc3YM5AzOTEaYLgx-ginFnGvtoR45ICBd_qvDNSlUe82h1lncs2396pA0JXpPR0uJwIG_QloqKBDil9bciqWcVGGUPwdmRJ_1SIslENg9onTfyuUDWYZD6YMJdCLgqahpz4gze2MbWCEyXIpF62ICprJI6Apo-zsJ2RR7iC06vWK2399l06d-H9SobX3b7q1QRwTAMvwL8W7CJHzy4szCCdKdmsVjAOCqBKuOOOLYP4eM58ffCJHMcb1Y"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-24 pb-8 px-container-padding-mobile md:px-container-padding-desktop md:ml-[280px] min-h-screen">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter max-w-7xl mx-auto">
+<!-- Left Column: Widgets & Next Post (Bento Grid Style) -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Top Row: Clock & Weather -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Digital Clock Widget -->
+<div class="glass-card rounded-xl p-6 flex flex-col justify-between aspect-[2/1] md:aspect-auto">
+<div class="flex justify-between items-start">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase">Local Time</h2>
+<span class="material-symbols-outlined text-primary-fixed">schedule</span>
+</div>
+<div class="mt-4">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg text-white text-glow-primary tracking-tighter" id="clock">
+                                09:41
+                            </div>
+<div class="font-body-md text-on-surface-variant mt-1">
+<span id="date-display">Mon, Oct 24</span> • Pacific Time
+                            </div>
+</div>
+</div>
+<!-- Weather Widget -->
+<div class="glass-card rounded-xl p-6 flex flex-col justify-between relative overflow-hidden aspect-[2/1] md:aspect-auto">
+<!-- Abstract weather graphic -->
+<div class="absolute right-[-20%] top-[-20%] w-48 h-48 bg-primary-container/20 rounded-full blur-2xl"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase">Weather</h2>
+<span class="material-symbols-outlined text-primary-fixed">cloudy_snowing</span>
+</div>
+<div class="relative z-10 flex items-end justify-between mt-4">
+<div>
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg text-white">68°</div>
+<div class="font-body-md text-on-surface-variant mt-1">Partly Cloudy</div>
+</div>
+<div class="text-right">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Seattle, WA</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Next Post Preview (Large Feature) -->
+<div class="glass-card rounded-xl p-6 md:p-8 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-white">Up Next</h2>
+</div>
+<div class="flex items-center gap-2 bg-black/40 px-3 py-1 rounded-full border border-white/5">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">In 2 hours</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+<!-- Media Preview -->
+<div class="rounded-lg overflow-hidden relative border border-white/10 group h-48 md:h-full min-h-[200px]">
+<img alt="Post preview image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-quality lifestyle product shot of a sleek matte black coffee tumbler on a concrete desk, moody lighting, cyan and magenta gel lights creating a modern tech-vibe, shot on 35mm lens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeubOjIhhIx5YdlKgojMSomPYRiPH0Kh3UJb1Sjg-_NDcrvUlbRT1g0ZoBG8MMoCT3LmABNfnmmxgqjUay8MrWFYXjwZzoCCT4qq7j5qvOA6SIZ1MlmEQy54TXjeSRdqgQRPy8Xvc7cAsZeT9y7PFbo81IcRZCDQoDjtclIEokbCeX8OEy3p3w5xkw3KPJmfU54h4YQyMNXfoDFWzaTBRET5SswuDQ572W9ardM240TEyVfHqUt33phnFUUCP727gLOiuzg243PjMn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<!-- Platform Chips -->
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="px-2 py-1 bg-surface-container/80 backdrop-blur-md rounded border border-white/10 font-label-sm text-[10px] text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary-fixed">photo_camera</span> Instagram
+                                </span>
+<span class="px-2 py-1 bg-[#0077b5]/20 backdrop-blur-md rounded border border-[#0077b5]/50 font-label-sm text-[10px] text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-[#0077b5]">work</span> LinkedIn
+                                </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="flex flex-col justify-between">
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-4">
+                                    "Leveling up the workspace today. Consistency isn't just about showing up; it's about the environment you build to support your vision. What's one item on your desk you can't work without? 👇 #CreatorLife #Setup #Productivity"
+                                </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-primary-fixed font-label-sm text-label-sm bg-primary-container/10 px-2 py-1 rounded">#CreatorLife</span>
+<span class="text-primary-fixed font-label-sm text-label-sm bg-primary-container/10 px-2 py-1 rounded">#Setup</span>
+</div>
+</div>
+<div class="flex justify-end gap-3">
+<button class="px-4 py-2 rounded-lg font-label-sm text-label-sm border border-white/10 text-on-surface hover:bg-white/5 transition-colors">
+                                    Edit
+                                </button>
+<button class="px-4 py-2 rounded-lg font-label-sm text-label-sm glass-button-primary">
+                                    Publish Now
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Task Management & Mini Calendar -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Mini Calendar -->
+<div class="glass-card rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-white text-lg">October</h2>
+<div class="flex gap-2">
+<button class="w-6 h-6 rounded flex items-center justify-center hover:bg-white/10 text-on-surface-variant"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-6 h-6 rounded flex items-center justify-center hover:bg-white/10 text-on-surface-variant"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center font-label-sm text-label-sm text-on-surface-variant mb-2">
+<div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center font-body-sm text-sm">
+<!-- Dimmed previous month -->
+<div class="p-1 text-white/20">29</div><div class="p-1 text-white/20">30</div>
+<!-- Current month -->
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">1</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">2</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">3</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">4</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">5</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">6</div>
+<!-- Active Day -->
+<div class="p-1 bg-primary-container text-black font-bold rounded shadow-[0_0_10px_rgba(0,240,255,0.4)] cursor-pointer">7</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">8</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">9</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors relative">
+                            10
+                            <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-secondary-container rounded-full"></span>
+</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">11</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">12</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors relative">
+                            13
+                            <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-fixed rounded-full"></span>
+</div>
+<div class="p-1 text-on-surface hover:bg-white/5 rounded cursor-pointer transition-colors">14</div>
+</div>
+</div>
+<!-- Task Management -->
+<div class="glass-card rounded-xl p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-white text-lg">Daily To-Do</h2>
+<span class="font-label-sm text-label-sm text-primary-fixed">3/5 Completed</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-1 bg-surface-container rounded-full mb-6 overflow-hidden">
+<div class="h-full bg-primary-container w-[60%] shadow-[0_0_8px_rgba(0,240,255,0.8)]"></div>
+</div>
+<ul class="space-y-4 flex-1">
+<!-- Completed Task -->
+<li class="flex items-start gap-3 group">
+<input checked="" class="neon-checkbox mt-1" type="checkbox"/>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant line-through opacity-70">Review Q4 Analytics Report</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant/50 mt-1">Due 10:00 AM</p>
+</div>
+</li>
+<!-- Pending Task Active -->
+<li class="flex items-start gap-3 group bg-white/5 p-2 -mx-2 rounded-lg border border-white/5">
+<input class="neon-checkbox mt-1" type="checkbox"/>
+<div>
+<p class="font-body-md text-body-md text-white">Approve draft for 'Setup Tour'</p>
+<p class="font-label-sm text-label-sm text-secondary-container mt-1">High Priority • Due 1:00 PM</p>
+</div>
+</li>
+<!-- Pending Task -->
+<li class="flex items-start gap-3 group">
+<input class="neon-checkbox mt-1" type="checkbox"/>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:text-white transition-colors">Engage with top comments</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant/50 mt-1">Routine</p>
+</div>
+</li>
+<!-- Completed Task -->
+<li class="flex items-start gap-3 group">
+<input checked="" class="neon-checkbox mt-1" type="checkbox"/>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant line-through opacity-70">Sync with brand partners</p>
+</div>
+</li>
+</ul>
+<div class="mt-4 pt-4 border-t border-white/10">
+<div class="flex items-center gap-2 bg-black/20 rounded-lg p-2 border border-white/5 focus-within:border-primary-fixed/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-sm ml-2">add</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-white w-full placeholder:text-on-surface-variant/50" placeholder="Add a new task..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only Fallback based on guidelines, though layout is mainly desktop focused above) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container/90 backdrop-blur-xl border-t border-white/10 z-50 px-4 py-2 flex justify-between items-center pb-safe">
+<a class="flex flex-col items-center gap-1 p-2 text-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-[10px]">Plan</span>
+</a>
+<button class="w-12 h-12 rounded-full glass-button-primary flex items-center justify-center shadow-lg -translate-y-4 border-4 border-surface">
+<span class="material-symbols-outlined text-black">add</span>
+</button>
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-sm text-[10px]">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple clock update
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('clock').textContent = hours + ':' + minutes;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body></html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scheduler Pro - Calendar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#1e2024",
+                      "surface": "#111318",
+                      "tertiary-fixed-dim": "#87dd00",
+                      "on-background": "#e2e2e8",
+                      "surface-dim": "#111318",
+                      "surface-variant": "#333539",
+                      "background": "#111318",
+                      "secondary-container": "#ff24e4",
+                      "primary-fixed": "#7df4ff",
+                      "surface-container-lowest": "#0c0e12",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#840076",
+                      "inverse-primary": "#006970",
+                      "primary-container": "#00f0ff",
+                      "secondary": "#fface8",
+                      "on-primary-container": "#006970",
+                      "outline": "#849495",
+                      "outline-variant": "#3b494b",
+                      "on-tertiary-fixed": "#0f2000",
+                      "tertiary-fixed": "#9bfc00",
+                      "surface-container-low": "#1a1c20",
+                      "surface-container-highest": "#333539",
+                      "on-secondary": "#5e0053",
+                      "tertiary": "#e2ffbe",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed": "#ffd7f0",
+                      "on-primary": "#00363a",
+                      "on-tertiary": "#1e3700",
+                      "on-primary-fixed-variant": "#004f54",
+                      "on-surface": "#e2e2e8",
+                      "secondary-fixed-dim": "#fface8",
+                      "surface-tint": "#00dbe9",
+                      "on-tertiary-container": "#3e6a00",
+                      "on-secondary-container": "#520049",
+                      "tertiary-container": "#94f100",
+                      "on-tertiary-fixed-variant": "#2e4f00",
+                      "primary": "#dbfcff",
+                      "inverse-surface": "#e2e2e8",
+                      "inverse-on-surface": "#2f3035",
+                      "primary-fixed-dim": "#00dbe9",
+                      "on-secondary-fixed": "#3a0033",
+                      "surface-bright": "#37393e",
+                      "on-surface-variant": "#b9cacb",
+                      "on-error": "#690005",
+                      "surface-container-high": "#282a2e",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed": "#002022"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "gutter": "24px",
+                      "surface-gap": "16px",
+                      "container-padding-desktop": "32px",
+                      "container-padding-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Montserrat"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Montserrat"
+                      ],
+                      "display-lg": [
+                              "Montserrat"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      }
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #0A0C10; /* Level 0 Base */
+            color: #e2e2e8;
+        }
+        .glass-card {
+            background-color: rgba(22, 27, 34, 0.8); /* Level 1 Card */
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        .glass-post {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+        .input-glass {
+            background-color: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .input-glass:focus {
+            border-color: #00F0FF;
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
+            outline: none;
+        }
+        
+        /* Drag and Drop visual cues */
+        .drag-over {
+            background-color: rgba(0, 240, 255, 0.1);
+            border: 1px dashed #00F0FF;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen flex">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex flex-col h-full py-base bg-surface-container/80 backdrop-blur-xl fixed h-full w-[280px] left-0 top-0 border-r border-white/10 shadow-2xl z-50">
+<div class="px-gutter mb-8 mt-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed">Creator Hub</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pro Plan</p>
+</div>
+<ul class="flex flex-col gap-2 px-4 flex-grow">
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary-fixed font-bold border-r-2 border-primary-fixed hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform bg-white/5" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-body-md text-body-md">Calendar</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-body-md text-body-md">Drafts</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-body-md text-body-md">Platforms</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</li>
+</ul>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary-container text-black font-body-md text-body-md py-3 rounded-lg font-bold glow-hover flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined">add</span>
+                New Post
+            </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<img class="w-10 h-10 rounded-full object-cover border border-white/20" data-alt="A detailed headshot portrait of a professional social media manager, warm lighting, cinematic depth of field, high-tech dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqOxXNmSYSIfIL18csmc_Evbq38cn8t4eFLgRbZRsPsCPNprZPvbY-W-JsGR_8xsQ-5OGWrcMxp_dpzW8YFG77Xdk9FBo0sOA9KMPULkwfTsY2oWVEKo1kI9F4HJ6kZbd_3AP6RortYE2noBsOhNpxnA3mKJUeWoSgRpei1rO9JrLnHlMBm-xv7H3O6FPJPpLWHacC1EgpmhrXlEZVZkHRBf8SIWVmFnub7Y5w__bfuHl6mcQTJk7OklhX-LLrzy5nGFY3-8LIE4Jb"/>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Alex Mercer</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-[280px] flex flex-col min-h-screen relative">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center h-16 px-gutter bg-surface/60 backdrop-blur-lg fixed top-0 right-0 w-full md:w-[calc(100%-280px)] border-b border-white/10 shadow-sm z-40">
+<div class="flex items-center gap-8">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg font-bold text-primary-fixed hidden md:block">Scheduler Pro</h2>
+<div class="md:hidden flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed">calendar_month</span>
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed">Calendar</span>
+</div>
+</div>
+<div class="hidden md:flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Workspaces</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Team</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Assets</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-black font-label-sm text-label-sm px-4 py-2 rounded-full font-bold glow-hover transition-all">Upgrade</button>
+<div class="flex gap-2 text-on-surface-variant">
+<button class="hover:text-primary-fixed transition-all"><span class="material-symbols-outlined">schedule</span></button>
+<button class="hover:text-primary-fixed transition-all"><span class="material-symbols-outlined">cloudy_snowing</span></button>
+<button class="hover:text-primary-fixed transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-secondary-container rounded-full"></span>
+</button>
+</div>
+<img class="w-8 h-8 rounded-full object-cover border border-white/20 md:hidden" data-alt="A detailed headshot portrait of a professional social media manager, warm lighting, cinematic depth of field, high-tech dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH8SmlQB6JbDZYxoXKR-0HT6ckltZjs-XUWz7CQOq-wLbA7lgy5kMmIOa2XkQ_85y82gsDpxXOapVSBq2EddSMxSxY6C7ofxjLTAFM7izhhBaDiH3pt3tE4oIUCXfu0JM_1kMtxMzz1bLLT8LebztAB7a9cLFlegmklQY9SHz6ldFOllc1iKtjOrAw4cgKS6HpDSGGG-LgSWFSSiQH80-xhDDekqCpXTDtbCAsKlMgacPk78HsPgrXhrT6GqM0fnZciLKT8acr2-A-"/>
+</div>
+</header>
+<!-- Calendar Container -->
+<div class="pt-24 pb-8 px-container-padding-mobile md:px-container-padding-desktop flex-1 flex flex-col xl:flex-row gap-surface-gap">
+<!-- Main Calendar Grid -->
+<div class="flex-1 glass-card rounded-xl p-6 flex flex-col">
+<!-- Calendar Header -->
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md font-bold text-white">October 2023</h2>
+<div class="flex gap-2">
+<button class="p-1 rounded bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-on-surface"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="p-1 rounded bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-on-surface"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded bg-white/10 border border-white/20 font-label-sm text-label-sm text-white">Month</button>
+<button class="px-3 py-1 rounded bg-transparent hover:bg-white/5 border border-transparent font-label-sm text-label-sm text-on-surface-variant">Week</button>
+</div>
+</div>
+<!-- Days Header -->
+<div class="grid grid-cols-7 gap-4 mb-2 text-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sun</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Mon</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Tue</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Wed</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Thu</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Fri</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sat</div>
+</div>
+<!-- Calendar Grid -->
+<div class="grid grid-cols-7 gap-2 flex-1 min-h-[600px]">
+<!-- Sample Days (simplified for brevity, focusing on styling) -->
+<!-- Empty Day -->
+<div class="glass-post rounded-lg p-2 min-h-[100px] border border-white/5 opacity-50">
+<span class="font-label-sm text-label-sm text-on-surface-variant block text-right mb-1">1</span>
+</div>
+<!-- Day with post -->
+<div class="glass-post rounded-lg p-2 min-h-[100px] flex flex-col gap-1 border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+<span class="font-label-sm text-label-sm text-on-surface block text-right mb-1">2</span>
+<div class="bg-secondary/10 border border-secondary/30 rounded p-1.5 flex items-center gap-2 group-hover:border-secondary transition-colors">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-[10px] text-secondary truncate">Product Launch Teaser</span>
+</div>
+</div>
+<div class="glass-post rounded-lg p-2 min-h-[100px] flex flex-col gap-1 border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+<span class="font-label-sm text-label-sm text-on-surface block text-right mb-1">3</span>
+</div>
+<div class="glass-post rounded-lg p-2 min-h-[100px] flex flex-col gap-1 border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+<span class="font-label-sm text-label-sm text-on-surface block text-right mb-1">4</span>
+<div class="bg-primary-container/10 border border-primary-container/30 rounded p-1.5 flex items-center gap-2 group-hover:border-primary-container transition-colors">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<span class="font-label-sm text-[10px] text-primary-container truncate">Weekly Tips Reel</span>
+</div>
+</div>
+<div class="glass-post rounded-lg p-2 min-h-[100px] flex flex-col gap-1 border border-primary-fixed/30 bg-primary-fixed/5 hover:bg-primary-fixed/10 transition-colors cursor-pointer group relative">
+<div class="absolute inset-0 rounded-lg border border-primary-fixed glow-hover pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-label-sm text-label-sm text-primary-fixed font-bold block text-right mb-1">5</span>
+</div>
+<div class="glass-post rounded-lg p-2 min-h-[100px] flex flex-col gap-1 border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+<span class="font-label-sm text-label-sm text-on-surface block text-right mb-1">6</span>
+</div>
+<div class="glass-post rounded-lg p-2 min-h-[100px] flex flex-col gap-1 border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+<span class="font-label-sm text-label-sm text-on-surface-variant block text-right mb-1">7</span>
+</div>
+</div>
+</div>
+<!-- Sidebar: Unscheduled Drafts -->
+<div class="w-full xl:w-[320px] glass-card rounded-xl p-6 flex flex-col h-full xl:max-h-[800px]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-[18px] font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed text-xl">inbox</span>
+                        Drafts
+                    </h3>
+<span class="bg-white/10 text-on-surface font-label-sm text-[10px] px-2 py-1 rounded-full">4 Items</span>
+</div>
+<div class="relative mb-6">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="input-glass w-full rounded-lg py-2 pl-9 pr-3 text-sm text-white placeholder-on-surface-variant transition-all" placeholder="Search drafts..." type="text"/>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar flex-1">
+<!-- Draft Item 1 -->
+<div class="glass-post p-3 rounded-lg border border-white/10 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-container shadow-[0_0_8px_rgba(255,36,228,0.6)]"></div>
+<span class="font-label-sm text-[10px] text-secondary-container uppercase tracking-wider">Instagram</span>
+</div>
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</div>
+<p class="font-body-md text-sm text-white mb-2 line-clamp-2">Behind the scenes of our new studio setup! 📸✨ #workspace</p>
+<div class="w-full h-16 rounded bg-black/40 border border-white/5 relative overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+</div>
+</div>
+<!-- Draft Item 2 -->
+<div class="glass-post p-3 rounded-lg border border-white/10 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#0077b5] shadow-[0_0_8px_rgba(0,119,181,0.6)]"></div>
+<span class="font-label-sm text-[10px] text-[#0077b5] uppercase tracking-wider">LinkedIn</span>
+</div>
+</div>
+<p class="font-body-md text-sm text-white line-clamp-3">Excited to announce our Q3 results. Our team has pushed boundaries in social scheduling...</p>
+</div>
+<!-- Draft Item 3 -->
+<div class="glass-post p-3 rounded-lg border border-white/10 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_8px_rgba(155,252,0,0.6)]"></div>
+<span class="font-label-sm text-[10px] text-tertiary-fixed uppercase tracking-wider">Twitter</span>
+</div>
+</div>
+<p class="font-body-md text-sm text-white line-clamp-2">Quick poll: What's your biggest challenge with content planning?</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<style>
+        /* Custom scrollbar for drafts area */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</body></html>

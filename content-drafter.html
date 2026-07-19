@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Drafts - Scheduler Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#1e2024",
+                      "surface": "#111318",
+                      "tertiary-fixed-dim": "#87dd00",
+                      "on-background": "#e2e2e8",
+                      "surface-dim": "#111318",
+                      "surface-variant": "#333539",
+                      "background": "#111318",
+                      "secondary-container": "#ff24e4",
+                      "primary-fixed": "#7df4ff",
+                      "surface-container-lowest": "#0c0e12",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#840076",
+                      "inverse-primary": "#006970",
+                      "primary-container": "#00f0ff",
+                      "secondary": "#fface8",
+                      "on-primary-container": "#006970",
+                      "outline": "#849495",
+                      "outline-variant": "#3b494b",
+                      "on-tertiary-fixed": "#0f2000",
+                      "tertiary-fixed": "#9bfc00",
+                      "surface-container-low": "#1a1c20",
+                      "surface-container-highest": "#333539",
+                      "on-secondary": "#5e0053",
+                      "tertiary": "#e2ffbe",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed": "#ffd7f0",
+                      "on-primary": "#00363a",
+                      "on-tertiary": "#1e3700",
+                      "on-primary-fixed-variant": "#004f54",
+                      "on-surface": "#e2e2e8",
+                      "secondary-fixed-dim": "#fface8",
+                      "surface-tint": "#00dbe9",
+                      "on-tertiary-container": "#3e6a00",
+                      "on-secondary-container": "#520049",
+                      "tertiary-container": "#94f100",
+                      "on-tertiary-fixed-variant": "#2e4f00",
+                      "primary": "#dbfcff",
+                      "inverse-surface": "#e2e2e8",
+                      "inverse-on-surface": "#2f3035",
+                      "primary-fixed-dim": "#00dbe9",
+                      "on-secondary-fixed": "#3a0033",
+                      "surface-bright": "#37393e",
+                      "on-surface-variant": "#b9cacb",
+                      "on-error": "#690005",
+                      "surface-container-high": "#282a2e",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed": "#002022"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "gutter": "24px",
+                      "surface-gap": "16px",
+                      "container-padding-desktop": "32px",
+                      "container-padding-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Montserrat"],
+                      "label-sm": ["Inter"],
+                      "display-lg-mobile": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .glass-input {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            border-color: #00F0FF;
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
+            outline: none;
+        }
+        .btn-primary {
+            background-color: #00F0FF;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #00F0FF;
+            color: #00F0FF;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(0, 240, 255, 0.1);
+        }
+        
+        /* Thin scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 6px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 3px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4); 
+        }
+    </style>
+</head>
+<body class="bg-[#0A0C10] text-on-surface font-body-md min-h-screen flex flex-col md:flex-row overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed h-full w-[280px] left-0 top-0 bg-surface-container/80 backdrop-blur-xl border-r border-white/10 shadow-2xl flex-col py-base z-50">
+<div class="px-gutter mb-8 mt-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed">Creator Hub</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 uppercase">Pro Plan</p>
+</div>
+<div class="px-surface-gap mb-6">
+<button class="w-full btn-primary py-3 rounded-lg font-label-sm text-label-sm uppercase flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                New Post
+            </button>
+</div>
+<ul class="flex-1 px-surface-gap space-y-1 overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md text-body-md">Calendar</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary-fixed font-bold border-r-2 border-primary-fixed hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform bg-white/5" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-body-md text-body-md">Drafts</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-body-md text-body-md">Platforms</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</li>
+</ul>
+<div class="px-gutter mt-auto pt-4 border-t border-white/10 flex items-center gap-3">
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20" data-alt="A small, stylized neon avatar profile picture showing a futuristic digital silhouette of a creator against a dark background with vivid cyan lighting, extremely sharp and high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg7eEEm2cfKdTVo7TvS6GzW5yG7pG47Bx2MINLa5LZpYcZi9QR6JwCXsLg72Uhe0kZsGxdCWezqvPie840z5lly6ZzUBh01rsN1zP0FzaBREjM0Wy9xl2qqcghBc1d_4Smhq3lxIz7GNpMslqEjnB6v0P8Z-mPwPEh8gGyyVJ58reWer_5AH11iyAhXCQp7jC1uohPSevr9Tz5DAXtdKcETDkJTqhoDwywJ-mcQieQ9R7aD3KRHL9mpC4qoBdRRmC4zFvjqOe2aBkI"/>
+<div class="flex-1 min-w-0">
+<p class="font-label-sm text-label-sm text-on-surface truncate">Alex Rivera</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate opacity-70">alex@creatorhub.co</p>
+</div>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="hidden md:flex fixed top-0 right-0 w-[calc(100%-280px)] bg-surface/60 backdrop-blur-lg border-b border-white/10 shadow-sm justify-between items-center h-16 px-gutter z-40">
+<div class="flex items-center">
+<span class="font-display-lg text-display-lg font-bold text-primary-fixed" style="font-size: 20px; line-height: 28px;">Scheduler Pro</span>
+</div>
+<nav class="flex items-center space-x-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Workspaces</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Team</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed transition-all hover:glow-primary" href="#">Assets</a>
+</nav>
+<div class="flex items-center space-x-4">
+<div class="flex space-x-2">
+<button class="p-2 rounded-full text-on-surface-variant hover:text-primary-fixed hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="p-2 rounded-full text-on-surface-variant hover:text-primary-fixed hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined">cloudy_snowing</span>
+</button>
+<button class="p-2 rounded-full text-on-surface-variant hover:text-primary-fixed hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<button class="btn-primary px-4 py-2 rounded-lg font-label-sm text-label-sm uppercase">Upgrade</button>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover border border-white/20" data-alt="A small, stylized neon avatar profile picture showing a futuristic digital silhouette of a creator against a dark background with vivid cyan lighting, extremely sharp and high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-NoQml1TENxyEoiI-kF1TTkL7UGCb_9ZTfZlILCslrVijrFHeu0mZ6lQj9WfO4iQXrLDU-eXgz3mWPlTAudWmHg96ZQuL0hYmDskOvMWTJdznGkI3dAlXOeWfGe5Z-bpaCjvDXNS9rhlf55w3Y-J-DJApdZdOK9G0Q1PvS5_JophdX3VcTZ_jFR5kLMeKJHQxH2b7104EmJw7s0oAgSoWdoTLH-IMdLfcKhzFKdOW3hFc-iFheedmLnutwBv1vzAici6HswY97f0B"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 md:ml-[280px] pt-16 p-container-padding-mobile md:p-container-padding-desktop flex flex-col min-h-screen relative overflow-hidden">
+<!-- Subtle background glow -->
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-container/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-container/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="flex justify-between items-end mb-8 z-10 relative">
+<div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">Draft Workspace</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Compose, preview, and schedule your next drop.</p>
+</div>
+<div class="flex gap-3">
+<button class="btn-secondary px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase tracking-wider">Save Draft</button>
+<button class="btn-primary px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+                    Publish Now
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter z-10 relative flex-1">
+<!-- Left Column: Composer -->
+<div class="lg:col-span-7 flex flex-col gap-surface-gap h-full">
+<!-- Platform Selection -->
+<div class="glass-card rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4" style="font-size: 18px;">Select Platforms</h3>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container/10 border border-primary-container text-primary-container font-label-sm text-label-sm transition-all hover:bg-primary-container/20">
+<span class="material-symbols-outlined" style="font-size: 16px;">share</span>
+                            Twitter / X
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full glass-input text-on-surface font-label-sm text-label-sm transition-all hover:border-white/30">
+<span class="material-symbols-outlined" style="font-size: 16px;">group</span>
+                            LinkedIn
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full glass-input text-on-surface font-label-sm text-label-sm transition-all hover:border-white/30">
+<span class="material-symbols-outlined" style="font-size: 16px;">public</span>
+                            Facebook
+                        </button>
+</div>
+</div>
+<!-- Rich Text Editor -->
+<div class="glass-card rounded-xl p-0 flex-1 flex flex-col min-h-[400px]">
+<div class="p-4 border-b border-white/10 flex items-center justify-between bg-white/5 rounded-t-xl">
+<div class="flex gap-2">
+<button class="p-2 rounded hover:bg-white/10 text-on-surface-variant hover:text-on-surface transition-colors" title="Bold">
+<span class="material-symbols-outlined" style="font-size: 20px;">format_bold</span>
+</button>
+<button class="p-2 rounded hover:bg-white/10 text-on-surface-variant hover:text-on-surface transition-colors" title="Italic">
+<span class="material-symbols-outlined" style="font-size: 20px;">format_italic</span>
+</button>
+<button class="p-2 rounded hover:bg-white/10 text-on-surface-variant hover:text-on-surface transition-colors" title="Link">
+<span class="material-symbols-outlined" style="font-size: 20px;">link</span>
+</button>
+<div class="w-px h-6 bg-white/10 my-auto mx-1"></div>
+<button class="p-2 rounded hover:bg-white/10 text-on-surface-variant hover:text-on-surface transition-colors" title="Add Media">
+<span class="material-symbols-outlined" style="font-size: 20px;">image</span>
+</button>
+<button class="p-2 rounded hover:bg-white/10 text-on-surface-variant hover:text-on-surface transition-colors" title="Add Emoji">
+<span class="material-symbols-outlined" style="font-size: 20px;">mood</span>
+</button>
+</div>
+<button class="font-label-sm text-label-sm text-primary-container hover:underline">Use AI Writer</button>
+</div>
+<div class="p-6 flex-1 flex flex-col relative group">
+<textarea class="w-full flex-1 bg-transparent border-none text-on-surface font-body-lg text-body-lg focus:ring-0 resize-none placeholder-on-surface-variant/50" placeholder="What's happening? Type your next viral post here..."></textarea>
+<!-- Embedded Media Placeholder (Hidden by default, shown for layout example) -->
+<div class="mt-4 relative rounded-lg overflow-hidden border border-white/10 group-hover:border-white/20 transition-colors h-48 w-full md:w-2/3">
+<div class="bg-cover bg-center w-full h-full absolute inset-0" data-alt="A sleek, modern dark-mode digital abstract background featuring subtle cyan and magenta neon gradients, creating a sense of depth and high-tech social media content." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZL_MvIhjiER5StKRA7RBi480N8IQcuPqGiQzpoaw8dJQGKScIJNwqm50gVwlZIwbyk8u6FFsVCIgjUMLYFM4C8o4muCbhOz0Lop_TRSeObBHxlhCRjwsx9LJteWrSK5AN7ZsEzxgWlx_dAaQKQ5pKjn-vmYK9lHik82wVi_Y5YuSgqCCOORLjtXi9j3TbZz_Cvb8LfxOWyYIPa4SDfEUEtyLycRBRjklOLJw3NYNWpJ924avq8cSt6khf_J5I_5Z8-dEFmB1Zjgw5')"></div>
+<button class="absolute top-2 right-2 p-1.5 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-black/80 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+</button>
+</div>
+</div>
+<!-- Character Counters -->
+<div class="p-4 border-t border-white/10 flex items-center justify-between bg-black/20 rounded-b-xl">
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#00f0ff]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">X: <span class="text-on-surface">142/280</span></span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LI: 142/3000</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Unsaved changes</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Preview & Schedule -->
+<div class="lg:col-span-5 flex flex-col gap-surface-gap h-full">
+<!-- Live Preview Card -->
+<div class="glass-card rounded-xl p-0 flex-1 flex flex-col overflow-hidden relative border-t-2 border-t-primary-container">
+<!-- Subtle top rim light -->
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2" style="font-size: 16px;">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 18px;">visibility</span>
+                            Live Preview
+                        </h3>
+<div class="flex gap-1">
+<button class="p-1 px-3 text-xs rounded bg-white/10 text-on-surface">Desktop</button>
+<button class="p-1 px-3 text-xs rounded text-on-surface-variant hover:bg-white/5">Mobile</button>
+</div>
+</div>
+<div class="p-6 flex-1 bg-black/40 overflow-y-auto">
+<!-- Mock Twitter Post Preview -->
+<div class="bg-surface rounded-xl border border-white/10 p-4 max-w-md mx-auto shadow-lg relative isolate">
+<!-- Tonal stacking layer -->
+<div class="absolute inset-0 bg-white/[0.02] rounded-xl -z-10"></div>
+<div class="flex gap-3 mb-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A small, stylized neon avatar profile picture showing a futuristic digital silhouette of a creator against a dark background with vivid cyan lighting, extremely sharp and high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6b1JkpbSIUJx_3VY44GI9QoIE4M9nrcnQRS_2nFUIZWkh7wsLZ7wA3ugXRk0EWX4pSeC9lfr9A8nn9GY4dsdV8bK4aCzUNG0wrVeg73YpmdIW28nGts9DfQTXbAVJro3Q-zbdPwmEt8csFbrmk2mumhK0PRK50FsvpcHnVJiNdWTr2oXvfwZpXw-zqAPtxZX-nQV531b4NFUXNHw6uMdPimlo2B8wg1Qb6vajowhX4yS6VL8tWzJYhU5Cu9jIPa4IjaZjEOtcwZVq"/>
+<div>
+<div class="flex items-center gap-1">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Alex Rivera</span>
+<span class="material-symbols-outlined text-primary-container" style="font-size: 14px; font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">@alexcreates · Just now</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-4">
+                                Testing the new multi-platform drafting features in Scheduler Pro. The glassmorphism UI feels incredibly fast and sleek. 🚀 <br/><br/>
+<span class="text-primary-container">#BuildInPublic #DesignSystem</span>
+</p>
+<div class="w-full h-40 bg-cover bg-center rounded-lg border border-white/10 mb-4" data-alt="A sleek, modern dark-mode digital abstract background featuring subtle cyan and magenta neon gradients, creating a sense of depth and high-tech social media content." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCsDrlF7JG6IG4xlTe-TGe4dI3YrNiZk7FNAbKZUMTLeNIwCHslQ0Z10d1GVXPtbfQzzw4RJCPQRNxyPPHT1pRTmvtCvNgxzzcdJ_CEh2VLY_amCmja9vEFU4YY4HhRy_LTYSv89k6uXW9hYE-YLzGyABWylMqXUDJlE5csYwGihKy0nrZOBYCY336KMZonmgKUutaMu6Zf3pkxNmUdcrAAzSM70rl3eRItgOrkyvhV4EBfbFKjMJll7OKPh0igq35SveuMsHz_A2Rp')"></div>
+<div class="flex justify-between text-on-surface-variant px-2">
+<button class="flex items-center gap-2 hover:text-primary-container transition-colors"><span class="material-symbols-outlined" style="font-size: 18px;">chat_bubble</span> <span class="text-xs">12</span></button>
+<button class="flex items-center gap-2 hover:text-tertiary-fixed transition-colors"><span class="material-symbols-outlined" style="font-size: 18px;">repeat</span> <span class="text-xs">4</span></button>
+<button class="flex items-center gap-2 hover:text-secondary-container transition-colors"><span class="material-symbols-outlined" style="font-size: 18px;">favorite</span> <span class="text-xs">48</span></button>
+<button class="flex items-center gap-2 hover:text-primary-container transition-colors"><span class="material-symbols-outlined" style="font-size: 18px;">bar_chart</span> <span class="text-xs">1.2k</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Schedule Panel -->
+<div class="glass-card rounded-xl p-6 relative overflow-hidden">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2" style="font-size: 18px;">
+<span class="material-symbols-outlined" style="font-size: 20px;">event</span>
+                        Schedule Drop
+                    </h3>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Date</label>
+<div class="relative">
+<input class="w-full glass-input rounded-lg py-2.5 px-4 pl-10 text-on-surface font-body-md text-body-md" type="text" value="Oct 24, 2024"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">calendar_today</span>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Time</label>
+<div class="relative">
+<input class="w-full glass-input rounded-lg py-2.5 px-4 pl-10 text-on-surface font-body-md text-body-md" type="text" value="09:00 AM"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">schedule</span>
+</div>
+</div>
+</div>
+<button class="w-full btn-secondary py-3 rounded-lg font-label-sm text-label-sm uppercase flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:animate-spin" style="font-size: 18px;">auto_awesome</span>
+                        Find Optimal Time
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
