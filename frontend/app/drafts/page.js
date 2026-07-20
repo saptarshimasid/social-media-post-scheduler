@@ -83,7 +83,7 @@ export default function DraftWorkspacePage() {
   const handleSaveDraft = async () => {
     // Mock save to file/API
     try {
-      const res = await fetch('http://localhost:5001/api/posts', {
+      const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -116,7 +116,7 @@ export default function DraftWorkspacePage() {
       setTimeout(() => setGenerationStage('LangGraph: Orchestrating pipelines...'), 600);
       setTimeout(() => setGenerationStage('LangGraph: Optimizing content nodes...'), 1200);
 
-      const response = await fetch('http://localhost:5001/api/generate', {
+      const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: aiPrompt })

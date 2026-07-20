@@ -31,7 +31,7 @@ export default function NextPostPreview({ selectedDate }) {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/posts');
+      const res = await fetch('/api/posts');
       const data = await res.json();
       setPosts(data);
     } catch (err) {
@@ -65,7 +65,7 @@ export default function NextPostPreview({ selectedDate }) {
         }
       }, 500);
 
-      const res = await fetch('http://localhost:5001/api/generate', {
+      const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt })
@@ -89,7 +89,7 @@ export default function NextPostPreview({ selectedDate }) {
     if (!generatedResult) return;
 
     try {
-      const res = await fetch('http://localhost:5001/api/posts', {
+      const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

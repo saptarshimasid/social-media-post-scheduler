@@ -45,7 +45,7 @@ export default function ContentCalendarPage() {
 
     async function fetchScheduledPosts() {
       try {
-        const res = await fetch('http://localhost:5001/api/posts');
+        const res = await fetch('/api/posts');
         if (res.ok) {
           const data = await res.json();
           setScheduledPosts(data);

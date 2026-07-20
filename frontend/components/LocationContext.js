@@ -5,24 +5,13 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const LocationContext = createContext();
 
 export function LocationProvider({ children }) {
-  const [locationName, setLocationName] = useState('Loading...');
-  const [weatherData, setWeatherData] = useState({ tempC: 20, condition: 'Partly Cloudy' });
+  const [locationName, setLocationName] = useState('Detecting location...');
+  const [weatherData, setWeatherData] = useState({ tempC: 20, condition: 'Loading...' });
   const [isCelsius, setIsCelsius] = useState(true);
 
   useEffect(() => {
-    async function fetchLocationAndWeather() {
+    async function fetchWeatherByCoords(lat, lon, fallbackCity = 'Local') {
       try {
-        const geoRes = await fetch('https://ipapi.co/json/');
-        if (!geoRes.ok) throw new Error('Location API error');
-        const geoData = await geoRes.json();
-        
-        const city = geoData.city || 'Seattle';
-        const region = geoData.region || 'WA';
-        setLocationName(`${city}, ${region}`);
-
-        const lat = geoData.latitude || 47.6062;
-        const lon = geoData.longitude || -122.3321;
-
         const weatherRes = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`
         );
@@ -59,15 +48,49 @@ export function LocationProvider({ children }) {
 
           const condition = weatherCodeMap[code] || 'Clear';
           setWeatherData({ tempC, condition });
+          if (locationName === 'Detecting location...') {
+             setLocationName(fallbackCity);
+          }
         }
       } catch (err) {
-        console.error('Error fetching location/weather:', err);
+        console.error('Error fetching weather:', err);
         setLocationName('Seattle, WA');
         setWeatherData({ tempC: 20, condition: 'Partly Cloudy' });
       }
     }
 
-    fetchLocationAndWeather();
+    async function fetchLocationByIP() {
+      try {
+        const geoRes = await fetch('https://ipapi.co/json/');
+        if (!geoRes.ok) throw new Error('Location API error');
+        const geoData = await geoRes.json();
+        const city = geoData.city || 'Unknown';
+        const region = geoData.region || '';
+        setLocationName(`${city}${region ? ', ' + region : ''}`);
+        
+        await fetchWeatherByCoords(geoData.latitude || 47.6062, geoData.longitude || -122.3321, city);
+      } catch (err) {
+        console.error('IP Geolocation failed, using default coords', err);
+        setLocationName('Seattle, WA');
+        fetchWeatherByCoords(47.6062, -122.3321, 'Seattle, WA');
+      }
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // If browser grants location, we use it directly
+          setLocationName('Your Location'); // Open-Meteo doesn't give city names directly
+          fetchWeatherByCoords(position.coords.latitude, position.coords.longitude, 'Your Location');
+        },
+        (error) => {
+          // If denied or fails, fallback to IP
+          fetchLocationByIP();
+        }
+      );
+    } else {
+      fetchLocationByIP();
+    }
   }, []);
 
   return (
