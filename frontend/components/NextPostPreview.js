@@ -29,12 +29,12 @@ export default function NextPostPreview({ selectedDate }) {
     }
   }, [selectedDate, posts]);
 
-  const fetchPosts = () => {
+  const fetchPosts = async () => {
     try {
-      const savedPosts = localStorage.getItem('creatorhub_posts');
-      if (savedPosts) {
-        setPosts(JSON.parse(savedPosts));
-      }
+      const res = await fetch('/api/posts');
+      if (!res.ok) throw new Error('API failed');
+      const data = await res.json();
+      setPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Error fetching posts:', err);
       setPosts([]);
@@ -95,27 +95,27 @@ export default function NextPostPreview({ selectedDate }) {
     if (!generatedResult) return;
 
     try {
-      const newPost = {
-        id: Date.now().toString(),
-        date: selectedDate,
-        draft: generatedResult.draft,
-        instagram: generatedResult.instagram,
-        linkedin: generatedResult.linkedin,
-        tags: generatedResult.tags,
-        platforms: ['Instagram', 'LinkedIn'],
-        scheduledTime: '10:00 AM',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCeubOjIhhIx5YdlKgojMSomPYRiPH0Kh3UJb1Sjg-_NDcrvUlbRT1g0ZoBG8MMoCT3LmABNfnmmxgqjUay8MrWFYXjwZzoCCT4qq7j5qvOA6SIZ1MlmEQy54TXjeSRdqgQRPy8Xvc7cAsZeT9y7PFbo81IcRZCDQoDjtclIEokbCeX8OEy3p3w5xkw3KPJmfU54h4YQyMNXfoDFWzaTBRET5SswuDQ572W9ardM240TEyVfHqUt33phnFUUCP727gLOiuzg243PjMn'
-      };
-      
-      const savedPosts = localStorage.getItem('creatorhub_posts');
-      const postsArray = savedPosts ? JSON.parse(savedPosts) : [];
-      postsArray.push(newPost);
-      localStorage.setItem('creatorhub_posts', JSON.stringify(postsArray));
+      const res = await fetch('/api/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date: selectedDate,
+          draft: generatedResult.draft,
+          instagram: generatedResult.instagram,
+          linkedin: generatedResult.linkedin,
+          tags: generatedResult.tags,
+          platforms: ['Instagram', 'LinkedIn'],
+          scheduledTime: '10:00 AM',
+          image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCeubOjIhhIx5YdlKgojMSomPYRiPH0Kh3UJb1Sjg-_NDcrvUlbRT1g0ZoBG8MMoCT3LmABNfnmmxgqjUay8MrWFYXjwZzoCCT4qq7j5qvOA6SIZ1MlmEQy54TXjeSRdqgQRPy8Xvc7cAsZeT9y7PFbo81IcRZCDQoDjtclIEokbCeX8OEy3p3w5xkw3KPJmfU54h4YQyMNXfoDFWzaTBRET5SswuDQ572W9ardM240TEyVfHqUt33phnFUUCP727gLOiuzg243PjMn'
+        })
+      });
 
-      setGeneratedResult(null);
-      setPrompt('');
-      setIsModalOpen(false);
-      fetchPosts(); // Refresh list
+      if (res.ok) {
+        setGeneratedResult(null);
+        setPrompt('');
+        setIsModalOpen(false);
+        fetchPosts(); // Refresh list
+      }
     } catch (err) {
       console.error('Error saving scheduled post:', err);
     }
