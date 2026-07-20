@@ -17,10 +17,12 @@ export default function TodoList() {
   const fetchTasks = async () => {
     try {
       const res = await fetch('/api/tasks');
+      if (!res.ok) throw new Error('API failed');
       const data = await res.json();
-      setTasks(data);
+      setTasks(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Error fetching tasks:', err);
+      setTasks([]);
     } finally {
       setLoading(false);
     }

@@ -32,10 +32,12 @@ export default function NextPostPreview({ selectedDate }) {
   const fetchPosts = async () => {
     try {
       const res = await fetch('/api/posts');
+      if (!res.ok) throw new Error('API failed');
       const data = await res.json();
-      setPosts(data);
+      setPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Error fetching posts:', err);
+      setPosts([]);
     }
   };
 

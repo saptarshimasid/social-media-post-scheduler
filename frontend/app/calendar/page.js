@@ -48,10 +48,13 @@ export default function ContentCalendarPage() {
         const res = await fetch('/api/posts');
         if (res.ok) {
           const data = await res.json();
-          setScheduledPosts(data);
+          setScheduledPosts(Array.isArray(data) ? data : []);
+        } else {
+          setScheduledPosts([]);
         }
       } catch (err) {
-        console.error('Error fetching calendar posts:', err);
+        console.error('Error fetching posts', err);
+        setScheduledPosts([]);
       }
     }
 
