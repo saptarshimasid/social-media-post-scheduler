@@ -6,6 +6,14 @@ import gsap from 'gsap';
 
 import SideNavBar from '@/components/SideNavBar';
 import TopNavBar from '@/components/TopNavBar';
+import { useProfile } from '@/components/ProfileContext';
+
+const avatarOptions = [
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuDK8ykBcnINDy2Khv5YDql-g1s2ny_8R03DQbIeh5Pto-ByYjt9x63YHjCaNtMBtrzs8KMyHACqv9MOK_ztdjM_rLvtfSY2F9t3z-vHlfMDC5NvS_ajoyMUkqvAD6wMC8ohIbaFJ6SvtxZUE2VkPYOdw1oluR_B_ShGFzkpsFkPmhZDC4fc9vm59J2eCxeJZMpFo8RR53lVC8ElYFIAwHI4-qMgQUJGMrvpiIQ_CVaDtk5Aro4s9WjeaT6gaXOIKNV1tnKtVHkALtIh",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAEcBh7IUd9h7aVmvG_82aPc3YM5AzOTEaYLgx-ginFnGvtoR45ICBd_qvDNSlUe82h1lncs2396pA0JXpPR0uJwIG_QloqKBDil9bciqWcVGGUPwdmRJ_1SIslENg9onTfyuUDWYZD6YMJdCLgqahpz4gze2MbWCEyXIpF62ICprJI6Apo-zsJ2RR7iC06vWK2399l06d-H9SobX3b7q1QRwTAMvwL8W7CJHzy4szCCdKdmsVjAOCqBKuOOOLYP4eM58ffCJHMcb1Y",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=256&q=80"
+];
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -13,10 +21,8 @@ export default function SettingsPage() {
   const [djangoUrl, setDjangoUrl] = useState('http://localhost:8000');
   const [nodeUrl, setNodeUrl] = useState('http://localhost:5001');
 
-  const [username, setUsername] = useState('Alex Nova');
-  const [email, setEmail] = useState('alex@creatorhub.co');
-  const [handle, setHandle] = useState('@nova_creates');
-  const [bio, setBio] = useState('Digital artist, workspace designer, and social strategist.');
+  // Use Global Profile Context
+  const { username, setUsername, email, setEmail, handle, setHandle, bio, setBio, avatarUrl, setAvatarUrl } = useProfile();
 
   const [notifEmail, setNotifEmail] = useState(true);
   const [notifPush, setNotifPush] = useState(false);
@@ -118,13 +124,22 @@ export default function SettingsPage() {
                   <div className="flex items-center gap-4 py-2">
                     <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#00f0ff]/50 relative group">
                       <img 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK8ykBcnINDy2Khv5YDql-g1s2ny_8R03DQbIeh5Pto-ByYjt9x63YHjCaNtMBtrzs8KMyHACqv9MOK_ztdjM_rLvtfSY2F9t3z-vHlfMDC5NvS_ajoyMUkqvAD6wMC8ohIbaFJ6SvtxZUE2VkPYOdw1oluR_B_ShGFzkpsFkPmhZDC4fc9vm59J2eCxeJZMpFo8RR53lVC8ElYFIAwHI4-qMgQUJGMrvpiIQ_CVaDtk5Aro4s9WjeaT6gaXOIKNV1tnKtVHkALtIh"
+                        src={avatarUrl}
                         className="w-full h-full object-cover" 
                         alt="Avatar profile" 
                       />
                     </div>
                     <div>
-                      <button className="px-3 py-1.5 rounded-lg border border-white/10 text-xs text-white hover:bg-white/5 cursor-pointer">Change Image</button>
+                      <button 
+                        onClick={() => {
+                          const currentIndex = avatarOptions.indexOf(avatarUrl);
+                          const nextIndex = (currentIndex + 1) % avatarOptions.length;
+                          setAvatarUrl(avatarOptions[nextIndex]);
+                        }}
+                        className="px-3 py-1.5 rounded-lg border border-white/10 text-xs text-white hover:bg-white/5 cursor-pointer"
+                      >
+                        Change Image
+                      </button>
                     </div>
                   </div>
 

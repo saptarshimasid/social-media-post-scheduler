@@ -3,9 +3,11 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useProfile } from './ProfileContext';
 
 export default function SideNavBar() {
   const pathname = usePathname();
+  const { username, avatarUrl } = useProfile();
 
   const navItems = [
     { name: 'Dashboard', path: '/', icon: 'dashboard' },
@@ -23,11 +25,11 @@ export default function SideNavBar() {
           <img
             alt="User Profile Avatar"
             className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK8ykBcnINDy2Khv5YDql-g1s2ny_8R03DQbIeh5Pto-ByYjt9x63YHjCaNtMBtrzs8KMyHACqv9MOK_ztdjM_rLvtfSY2F9t3z-vHlfMDC5NvS_ajoyMUkqvAD6wMC8ohIbaFJ6SvtxZUE2VkPYOdw1oluR_B_ShGFzkpsFkPmhZDC4fc9vm59J2eCxeJZMpFo8RR53lVC8ElYFIAwHI4-qMgQUJGMrvpiIQ_CVaDtk5Aro4s9WjeaT6gaXOIKNV1tnKtVHkALtIh"
+            src={avatarUrl}
           />
         </div>
         <div>
-          <h1 className="font-headline-md text-md font-bold text-primary-fixed">Creator Hub</h1>
+          <h1 className="font-headline-md text-md font-bold text-primary-fixed">{username}</h1>
           <p className="font-label-sm text-[11px] text-on-surface-variant/80">Pro Plan</p>
         </div>
       </div>

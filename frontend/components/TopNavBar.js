@@ -60,14 +60,6 @@ export default function TopNavBar() {
               : `${Math.round((weatherData.tempC * 9/5) + 32)}°F`}
           </span>
         </motion.button>
-        
-        <div className="w-8 h-8 rounded-full ml-2 overflow-hidden border border-white/10 cursor-pointer">
-          <img
-            alt="User profile"
-            className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEcBh7IUd9h7aVmvG_82aPc3YM5AzOTEaYLgx-ginFnGvtoR45ICBd_qvDNSlUe82h1lncs2396pA0JXpPR0uJwIG_QloqKBDil9bciqWcVGGUPwdmRJ_1SIslENg9onTfyuUDWYZD6YMJdCLgqahpz4gze2MbWCEyXIpF62ICprJI6Apo-zsJ2RR7iC06vWK2399l06d-H9SobX3b7q1QRwTAMvwL8W7CJHzy4szCCdKdmsVjAOCqBKuOOOLYP4eM58ffCJHMcb1Y"
-          />
-        </div>
       </div>
     </header>
   );

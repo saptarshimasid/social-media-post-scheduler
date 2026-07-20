@@ -78,13 +78,23 @@ export function LocationProvider({ children }) {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // If browser grants location, we use it directly
-          setLocationName('Your Location'); // Open-Meteo doesn't give city names directly
-          fetchWeatherByCoords(position.coords.latitude, position.coords.longitude, 'Your Location');
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          
+          // Reverse geocode to get city name
+          try {
+            const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+            const geoData = await geoRes.json();
+            const city = geoData.city || geoData.locality || 'Your Location';
+            setLocationName(city);
+            fetchWeatherByCoords(lat, lon, city);
+          } catch (e) {
+            setLocationName('Your Location');
+            fetchWeatherByCoords(lat, lon, 'Your Location');
+          }
         },
         (error) => {
-          // If denied or fails, fallback to IP
           fetchLocationByIP();
         }
       );

@@ -48,22 +48,22 @@ export default function TodoList() {
   };
 
   const handleAddTask = async (e) => {
-    if (e.key === 'Enter' && newTaskText.trim()) {
-      const text = newTaskText.trim();
-      const priority = newTaskPriority;
-      setNewTaskText('');
+    if ((e.type === 'keydown' && e.key !== 'Enter') || !newTaskText.trim()) return;
+    
+    const text = newTaskText.trim();
+    const priority = newTaskPriority;
+    setNewTaskText('');
 
-      try {
-        const res = await fetch('/api/tasks', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, priority, due: '' })
-        });
-        const createdTask = await res.json();
-        setTasks(prev => [...prev, createdTask]);
-      } catch (err) {
-        console.error('Error adding task:', err);
-      }
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, priority, due: '' })
+      });
+      const createdTask = await res.json();
+      setTasks(prev => [...prev, createdTask]);
+    } catch (err) {
+      console.error('Error adding task:', err);
     }
   };
 
@@ -177,7 +177,9 @@ export default function TodoList() {
           </select>
         </div>
         <div className="flex items-center gap-2 bg-black/20 rounded-lg p-2 border border-white/5 focus-within:border-[#00F0FF]/50 transition-colors">
-          <span className="material-symbols-outlined text-on-surface-variant text-sm ml-2">add</span>
+          <button onClick={handleAddTask} className="flex items-center cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
+            <span className="material-symbols-outlined text-on-surface-variant text-sm ml-2">add</span>
+          </button>
           <input 
             type="text"
             value={newTaskText}

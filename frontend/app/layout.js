@@ -2,6 +2,7 @@ import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
 import { LocationProvider } from "@/components/LocationContext";
+import { ProfileProvider } from "@/components/ProfileContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -61,22 +62,17 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark h-full antialiased">
+    <html lang="en">
       <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       </head>
-      <body className={`${montserrat.variable} ${inter.variable} min-h-full flex flex-col font-body-md text-body-md antialiased overflow-x-hidden`}>
+      <body className="antialiased bg-[#0A0C10] text-white overflow-x-hidden selection:bg-[#00f0ff]/30">
         <LenisProvider>
-          <LocationProvider>
-            {children}
-          </LocationProvider>
+          <ProfileProvider>
+            <LocationProvider>
+              {children}
+            </LocationProvider>
+          </ProfileProvider>
         </LenisProvider>
       </body>
     </html>
