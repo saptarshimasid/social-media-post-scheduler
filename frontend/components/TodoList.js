@@ -11,76 +11,50 @@ export default function TodoList() {
 
   // Fetch tasks on mount
   useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const fetchTasks = async () => {
     try {
-      const res = await fetch('/api/tasks');
-      if (!res.ok) throw new Error('API failed');
-      const data = await res.json();
-      setTasks(Array.isArray(data) ? data : []);
+      const savedTasks = localStorage.getItem('creatorhub_tasks');
+      if (savedTasks) {
+        setTasks(JSON.parse(savedTasks));
+      }
     } catch (err) {
-      console.error('Error fetching tasks:', err);
-      setTasks([]);
+      console.error('Error fetching tasks from local storage:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleToggle = async (task) => {
-    const updatedCompleted = !task.completed;
-    
-    // Optimistic Update
-    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, completed: updatedCompleted } : t));
-
-    try {
-      await fetch(`/api/tasks/${task.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: updatedCompleted })
-      });
-    } catch (err) {
-      console.error('Error toggling task:', err);
-      // Revert if error
-      setTasks(prev => prev.map(t => t.id === task.id ? { ...t, completed: !updatedCompleted } : t));
+  // Sync to local storage whenever tasks change
+  useEffect(() => {
+    if (!loading) {
+      localStorage.setItem('creatorhub_tasks', JSON.stringify(tasks));
     }
+  }, [tasks, loading]);
+
+  const handleToggle = (task) => {
+    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, completed: !t.completed } : t));
   };
 
-  const handleAddTask = async (e) => {
+  const handleAddTask = (e) => {
     if ((e.type === 'keydown' && e.key !== 'Enter') || !newTaskText.trim()) return;
     
     const text = newTaskText.trim();
     const priority = newTaskPriority;
-    setNewTaskText('');
+    
+    const newTask = {
+      id: Date.now().toString(),
+      text,
+      priority,
+      due: '',
+      completed: false
+    };
 
-    try {
-      const res = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, priority, due: '' })
-      });
-      const createdTask = await res.json();
-      setTasks(prev => [...prev, createdTask]);
-    } catch (err) {
-      console.error('Error adding task:', err);
-    }
+    setTasks(prev => [...prev, newTask]);
+    setNewTaskText('');
   };
 
-  const handleDeleteTask = async (id, e) => {
+  const handleDeleteTask = (id, e) => {
     if (e) e.stopPropagation();
-    
-    // Optimistic Update
     setTasks(prev => prev.filter(t => t.id !== id));
-
-    try {
-      await fetch(`/api/tasks/${id}`, {
-        method: 'DELETE'
-      });
-    } catch (err) {
-      console.error('Error deleting task:', err);
-      fetchTasks(); // Revert
-    }
   };
 
   const getPriorityColor = (priority) => {

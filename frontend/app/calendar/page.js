@@ -43,12 +43,11 @@ export default function ContentCalendarPage() {
     const d = String(today.getDate()).padStart(2, '0');
     setTodayStr(`${y}-${m}-${d}`);
 
-    async function fetchScheduledPosts() {
+    function fetchScheduledPosts() {
       try {
-        const res = await fetch('/api/posts');
-        if (res.ok) {
-          const data = await res.json();
-          setScheduledPosts(Array.isArray(data) ? data : []);
+        const savedPosts = localStorage.getItem('creatorhub_posts');
+        if (savedPosts) {
+          setScheduledPosts(JSON.parse(savedPosts));
         } else {
           setScheduledPosts([]);
         }

@@ -122,7 +122,7 @@ export default function SettingsPage() {
                   </h3>
                   
                   <div className="flex items-center gap-4 py-2">
-                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#00f0ff]/50 relative group">
+                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#00f0ff]/50 relative group shrink-0">
                       <img 
                         src={avatarUrl}
                         className="w-full h-full object-cover" 
@@ -130,16 +130,25 @@ export default function SettingsPage() {
                       />
                     </div>
                     <div>
-                      <button 
-                        onClick={() => {
-                          const currentIndex = avatarOptions.indexOf(avatarUrl);
-                          const nextIndex = (currentIndex + 1) % avatarOptions.length;
-                          setAvatarUrl(avatarOptions[nextIndex]);
-                        }}
-                        className="px-3 py-1.5 rounded-lg border border-white/10 text-xs text-white hover:bg-white/5 cursor-pointer"
-                      >
-                        Change Image
-                      </button>
+                      <label className="px-3 py-1.5 rounded-lg border border-white/10 text-xs text-white hover:bg-white/5 cursor-pointer inline-block">
+                        Upload Image
+                        <input 
+                          type="file" 
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onloadend = () => {
+                                setAvatarUrl(reader.result); // Base64 string
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </label>
+                      <p className="text-[9px] text-on-surface-variant/50 mt-1.5">Max size 2MB recommended.</p>
                     </div>
                   </div>
 
